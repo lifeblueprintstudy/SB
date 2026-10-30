@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simon Bertelsen – Video &amp; Foto</title>
+<meta name="description" content="Simon Bertelsen – video og foto. Portefølje og booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Lysstyring som palet: tungsten (3200K) som accent, dagslys (5600K) som modspil */
+  --bg:#141210;
+  --surface:#1d1a17;
+  --line:#34302b;
+  --ink:#efe9e1;
+  --muted:#a39a8e;
+  --tungsten:#f0a24a;
+  --daylight:#9fc3e6;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  /* Layout: venstrestillet, filmstrimmel-rytme — smalle metadatakolonner ved siden af store billedflader */
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body)}
+a{color:inherit}
+img{max-width:100%}
+:focus-visible{outline:2px solid var(--tungsten);outline-offset:3px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:var(--display);font-weight:300;text-wrap:balance;margin:0;line-height:1.05}
+h2{font-size:clamp(34px,5vw,56px)}
+section{padding:96px 0;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:end;margin-bottom:48px}
+@media (max-width:720px){.sec-head{grid-template-columns:1fr}}
+
+/* Nav */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{font-family:var(--display);font-size:22px;text-decoration:none;font-weight:500}
+.logo span{color:var(--tungsten)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-size:15px;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:2px;background:var(--tungsten);color:#1a1209;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:var(--body)}
+.btn:hover{background:#f5b56a}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--muted)}
+@media (max-width:760px){.nav ul{display:none}}
+
+/* Frames (pladsholdere for billeder/video) */
+.frame{display:block;position:relative;overflow:hidden;background:var(--g);isolation:isolate}
+.frame::after{content:"";position:absolute;inset:0;z-index:1;opacity:.35;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.frame .meta{position:absolute;z-index:2;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.frame .play{position:absolute;z-index:2;top:50%;left:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);display:grid;place-items:center;transition:transform .25s}
+.frame .play::before{content:"";border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.frame .rec{position:absolute;z-index:2;top:12px;left:14px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.85);display:flex;gap:8px;align-items:center}
+.frame .rec i{width:7px;height:7px;border-radius:50%;background:#e5533d}
+
+/* Hero */
+.hero{padding:56px 0 72px;border-top:0}
+.hero-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(46px,7.4vw,96px);letter-spacing:-.015em}
+.hero h1 em{font-style:italic;color:var(--tungsten)}
+.hero p.lead{max-width:44ch;color:var(--muted);font-size:19px;margin:24px 0 32px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero .reel{aspect-ratio:16/9;border-radius:2px;--g:radial-gradient(120% 90% at 78% 30%,#f0a24a 0%,#7a3e1a 32%,#21140e 70%),#111}
+.hero .reel:hover .play{transform:scale(1.08)}
+.slate{display:grid;grid-template-columns:repeat(3,auto);gap:4px 28px;margin-top:20px;justify-content:start}
+.slate div b{display:block;font-family:var(--display);font-size:28px;font-weight:300;color:var(--ink);text-transform:none;letter-spacing:0}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+/* Arbejde */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:500 14px var(--body);padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:28px}
+.work{grid-column:span 2;display:flex;flex-direction:column;gap:10px;text-decoration:none}
+.work.wide{grid-column:span 4}
+.work.tall .frame{aspect-ratio:4/5}
+.work .frame{aspect-ratio:16/10;border-radius:2px}
+.work.wide .frame{aspect-ratio:16/8.4}
+.work:hover .frame{filter:brightness(1.1)}
+.work:hover .play{transform:scale(1.08)}
+.work h3{font-size:22px}
+.work .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.work[hidden]{display:none}
+@media (max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}.work,.work.wide{grid-column:span 2}.work.tall{grid-column:span 1}}
+@media (max-width:520px){.work.tall{grid-column:span 2}}
+
+/* Ydelser */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+.svc{padding:32px 28px;display:flex;flex-direction:column;gap:14px;border-right:1px solid var(--line)}
+.svc:last-child{border-right:0}
+.svc h3{font-size:30px}
+.svc .price{font-family:var(--display);font-size:22px;color:var(--tungsten)}
+.svc ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--muted);font-size:15px}
+.svc li::before{content:"— ";color:var(--line)}
+.svc.feat{background:var(--surface)}
+.svc .btn{margin-top:auto;align-self:start}
+@media (max-width:860px){.services{grid-template-columns:1fr}.svc{border-right:0;border-bottom:1px solid var(--line)}.svc:last-child{border-bottom:0}}
+
+/* Om */
+.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.about .frame{aspect-ratio:4/5;--g:linear-gradient(160deg,#2b3b4a 0%,#9fc3e6 55%,#e8d3b0 100%)}
+.about p{max-width:60ch;color:var(--muted)}
+.about p.big{font-family:var(--display);font-size:clamp(24px,3vw,32px);line-height:1.3;color:var(--ink);font-weight:300}
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.kit div{font-size:15px}
+@media (max-width:860px){.about{grid-template-columns:1fr}}
+
+/* Booking */
+.booking{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:22px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:12px;color:var(--muted);font-size:15px}
+.steps li::before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);color:var(--tungsten)}
+.steps b{display:block;color:var(--ink);font-weight:500}
+form{background:var(--surface);border:1px solid var(--line);padding:32px;display:grid;gap:22px}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+legend,label{font-size:14px;font-weight:500;color:var(--ink);padding:0;margin-bottom:8px}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick label{margin:0;font-weight:500;font-size:14px;padding:9px 15px;border:1px solid var(--line);border-radius:999px;color:var(--muted);cursor:pointer}
+.pick input:checked+label{border-color:var(--tungsten);color:var(--tungsten);background:color-mix(in srgb,var(--tungsten) 10%,transparent)}
+.pick input:focus-visible+label{outline:2px solid var(--tungsten);outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column}
+input[type=text],input[type=email],input[type=date],input[type=tel],select,textarea{font:400 16px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--tungsten);outline:none}
+textarea{min-height:110px;resize:vertical}
+.err{color:#ff8b74;font-size:14px;min-height:1em;margin:0}
+.done{display:none;gap:16px}
+.done.show{display:grid}
+.done pre{white-space:pre-wrap;font:400 13px/1.6 var(--mono);background:var(--bg);border:1px solid var(--line);padding:16px;margin:0;color:var(--muted)}
+@media (max-width:860px){.booking{grid-template-columns:1fr}}
+@media (max-width:520px){.two{grid-template-columns:1fr}form{padding:22px}}
+
+footer{border-top:1px solid var(--line);padding:40px 0 56px}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
+.foot .logo{font-size:40px}
+.foot nav{display:flex;gap:24px;flex-wrap:wrap}
+.foot nav a{color:var(--muted);text-decoration:none}
+.foot nav a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top">Simon Bertelsen<span>.</span></a>
+    <ul>
+      <li><a href="#arbejde">Arbejde</a></li>
+      <li><a href="#ydelser">Ydelser</a></li>
+      <li><a href="#om">Om</a></li>
+    </ul>
+    <a class="btn" href="#booking">Book en dag</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="mono">Video · Foto · Lys — København</p>
+        <h1 style="margin-top:18px">Billeder med <em>lys</em> i.</h1>
+        <p class="lead">Jeg filmer og fotograferer musikvideoer, kampagner, events og portrætter. Fra første idé til færdig klip — med et skarpt øje for lyset.</p>
+        <div class="actions">
+          <a class="btn" href="#booking">Book en optagedag →</a>
+          <a class="btn ghost" href="#arbejde">Se arbejde</a>
+        </div>
+      </div>
+      <div>
+        <a class="frame reel" href="#arbejde" aria-label="Afspil showreel (pladsholder)">
+          <span class="rec"><i></i>SHOWREEL 2026</span>
+          <span class="play" aria-hidden="true"></span>
+          <span class="meta"><span>01:12</span><span>4K · 25 fps · 3200K</span></span>
+        </a>
+        <div class="slate mono">
+          <div><b>40+</b>projekter</div>
+          <div><b>4K</b>video</div>
+          <div><b>48 t</b>svartid</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARBEJDE -->
+  <section id="arbejde">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="mono">01 / Arbejde</p>
+        <h2>Udvalgte projekter</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrér projekter">
+        <button class="chip" aria-pressed="true" data-f="alle">Alle</button>
+        <button class="chip" aria-pressed="false" data-f="video">Video</button>
+        <button class="chip" aria-pressed="false" data-f="foto">Foto</button>
+      </div>
+
+      <div class="grid" id="grid">
+        <a class="work wide" data-type="video" href="#booking">
+          <div class="frame" style="--g:linear-gradient(115deg,#0d1b2a 0%,#1f4e79 45%,#e58f3b 100%)">
+            <span class="play" aria-hidden="true"></span>
+            <span class="meta"><span>Musikvideo</span><span>03:41</span></span>
+          </div>
+          <div class="row"><h3>Natlys</h3><span class="mono">Video · 2026</span></div>
+        </a>
+        <a class="work tall" data-type="foto" href="#booking">
+          <div class="frame" style="--g:linear-gradient(180deg,#3a2a22 0%,#b97a52 60%,#f1d2b1 100%)">
+            <span class="meta"><span>Portræt</span><span>85 mm · f/1.8</span></span>
+          </div>
+          <div class="row"><h3>Studie i rav</h3><span class="mono">Foto · 2026</span></div>
+        </a>
+        <a class="work" data-type="video" href="#booking">
+          <div class="frame" style="--g:radial-gradient(90% 90% at 30% 40%,#9fc3e6 0%,#36506b 45%,#0f1720 100%)">
+            <span class="play" aria-hidden="true"></span>
+            <span class="meta"><span>Reklame</span><span>00:30</span></span>
+          </div>
+          <div class="row"><h3>Havnebad</h3><span class="mono">Video · 2025</span></div>
+        </a>
+        <a class="work" data-type="foto" href="#booking">
+          <div class="frame" style="--g:linear-gradient(140deg,#151515 0%,#4a4a4a 50%,#d9d4cc 100%)">
+            <span class="meta"><span>Event</span><span>Sort/hvid</span></span>
+          </div>
+          <div class="row"><h3>Koncertnat, Vega</h3><span class="mono">Foto · 2025</span></div>
+        </a>
+        <a class="work" data-type="video" href="#booking">
+          <div class="frame" style="--g:linear-gradient(200deg,#2a0f12 0%,#8f2d2a 50%,#f0a24a 100%)">
+            <span class="play" aria-hidden="true"></span>
+            <span class="meta"><span>Kortfilm</span><span>14:02</span></span>
+          </div>
+          <div class="row"><h3>Ild</h3><span class="mono">Video · 2024</span></div>
+        </a>
+        <a class="work wide" data-type="foto" href="#booking">
+          <div class="frame" style="--g:linear-gradient(95deg,#e9e2d6 0%,#c9b79c 40%,#5d6b5a 100%)">
+            <span class="meta"><span>Produktfoto</span><span>Serie · 12 billeder</span></span>
+          </div>
+          <div class="row"><h3>Møbler i dagslys</h3><span class="mono">Foto · 2025</span></div>
+        </a>
+        <a class="work" data-type="video" href="#booking">
+          <div class="frame" style="--g:linear-gradient(160deg,#1b2a1e 0%,#4f7a52 55%,#d8e3b5 100%)">
+            <span class="play" aria-hidden="true"></span>
+            <span class="meta"><span>Dokumentar</span><span>06:20</span></span>
+          </div>
+          <div class="row"><h3>Kolonihaven</h3><span class="mono">Video · 2025</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- YDELSER -->
+  <section id="ydelser">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="mono">02 / Ydelser</p>
+        <h2>Tre måder at arbejde sammen på</h2>
+      </div>
+      <div class="services">
+        <div class="svc">
+          <p class="mono">Foto</p>
+          <h3>Fotodag</h3>
+          <p class="price">fra 3.500 kr.</p>
+          <ul>
+            <li>Op til 4 timers optagelse</li>
+            <li>30+ redigerede billeder</li>
+            <li>Portræt, produkt eller event</li>
+            <li>Levering inden for 5 hverdage</li>
+          </ul>
+          <a class="btn ghost" href="#booking" data-pick="Foto">Book fotodag</a>
+        </div>
+        <div class="svc feat">
+          <p class="mono" style="color:var(--tungsten)">Mest valgt</p>
+          <h3>Video</h3>
+          <p class="price">fra 8.000 kr.</p>
+          <ul>
+            <li>Planlægning og shotliste</li>
+            <li>1 optagedag med lys og lyd</li>
+            <li>Klip, farvekorrektion og musik</li>
+            <li>Formater til web, SoMe og skærm</li>
+          </ul>
+          <a class="btn" href="#booking" data-pick="Video">Book video</a>
+        </div>
+        <div class="svc">
+          <p class="mono">Foto + video</p>
+          <h3>Hele pakken</h3>
+          <p class="price">efter aftale</p>
+          <ul>
+            <li>Kampagner og lanceringer</li>
+            <li>Stills og film fra samme dag</li>
+            <li>Ét samlet visuelt udtryk</li>
+            <li>Fast pris efter første snak</li>
+          </ul>
+          <a class="btn ghost" href="#booking" data-pick="Foto + video">Få et tilbud</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OM -->
+  <section id="om">
+    <div class="wrap about">
+      <div class="frame" role="img" aria-label="Portræt af Simon (pladsholder)">
+        <span class="meta"><span>Simon Bertelsen</span><span>5600K</span></span>
+      </div>
+      <div>
+        <p class="mono">03 / Om</p>
+        <p class="big" style="margin-top:18px">Jeg tænker i lys, før jeg tænker i kamera. Det er dér, stemningen bliver lavet.</p>
+        <p>Jeg arbejder med video og foto i København — på egne projekter, for brands og bands, og som en del af filmhold. Uanset størrelsen på opgaven kommer jeg forberedt, holder tidsplanen og leverer materiale, du kan bruge med det samme.</p>
+        <p>Skriv gerne, selvom idéen kun er halvfærdig. Vi finder ud af resten sammen.</p>
+        <div class="kit">
+          <div><span class="mono">Kamera</span><br>Cinema- og fotokamera, 4K</div>
+          <div><span class="mono">Lys</span><br>LED og tungsten, egen pakke</div>
+          <div><span class="mono">Lyd</span><br>Trådløs mik og boom</div>
+          <div><span class="mono">Post</span><br>Klip og farve i DaVinci Resolve</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="wrap booking">
+      <div>
+        <p class="mono">04 / Booking</p>
+        <h2 style="margin-top:18px">Book en dag</h2>
+        <ol class="steps">
+          <li><div><b>Send en forespørgsel</b>Fortæl kort, hvad du drømmer om, og hvornår.</div></li>
+          <li><div><b>Vi tager en snak</b>Jeg vender tilbage inden for 48 timer med spørgsmål og et prisoverslag.</div></li>
+          <li><div><b>Datoen er din</b>Når tilbuddet er godkendt, låser vi optagedagen.</div></li>
+        </ol>
+        <p class="mono" style="margin-top:36px">Eller skriv direkte</p>
+        <p style="margin:6px 0 0"><a href="mailto:kontakt@simonbertelsen.dk">kontakt@simonbertelsen.dk</a></p>
+        <p style="margin:4px 0 0"><a href="https://www.instagram.com/simon_bertelsenn/">@simon_bertelsenn</a></p>
+      </div>
+
+      <div>
+        <form id="bookForm" novalidate>
+          <fieldset>
+            <legend>Hvad skal laves?</legend>
+            <div class="pick" id="pickType">
+              <input type="radio" name="type" id="t1" value="Video"><label for="t1">Video</label>
+              <input type="radio" name="type" id="t2" value="Foto"><label for="t2">Foto</label>
+              <input type="radio" name="type" id="t3" value="Foto + video"><label for="t3">Foto + video</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Hvilken slags opgave?</legend>
+            <div class="pick">
+              <input type="checkbox" name="kind" id="k1" value="Musikvideo"><label for="k1">Musikvideo</label>
+              <input type="checkbox" name="kind" id="k2" value="Reklame / SoMe"><label for="k2">Reklame / SoMe</label>
+              <input type="checkbox" name="kind" id="k3" value="Event"><label for="k3">Event</label>
+              <input type="checkbox" name="kind" id="k4" value="Portræt"><label for="k4">Portræt</label>
+              <input type="checkbox" name="kind" id="k5" value="Produkt"><label for="k5">Produkt</label>
+              <input type="checkbox" name="kind" id="k6" value="Kortfilm"><label for="k6">Kortfilm</label>
+            </div>
+          </fieldset>
+          <div class="two">
+            <div class="field"><label for="date">Ønsket dato</label><input type="date" id="date" name="date"></div>
+            <div class="field"><label for="place">Sted</label><input type="text" id="place" name="place" placeholder="Fx København NV"></div>
+          </div>
+          <div class="field">
+            <label for="budget">Budget</label>
+            <select id="budget" name="budget">
+              <option value="">Vælg et niveau</option>
+              <option>Under 5.000 kr.</option>
+              <option>5.000 – 15.000 kr.</option>
+              <option>15.000 – 40.000 kr.</option>
+              <option>Over 40.000 kr.</option>
+              <option>Ved ikke endnu</option>
+            </select>
+          </div>
+          <div class="two">
+            <div class="field"><label for="name">Navn</label><input type="text" id="name" name="name" autocomplete="name"></div>
+            <div class="field"><label for="email">E-mail</label><input type="email" id="email" name="email" autocomplete="email"></div>
+          </div>
+          <div class="field">
+            <label for="msg">Fortæl om idéen</label>
+            <textarea id="msg" name="msg" placeholder="Hvad skal vi lave, og hvem er det til? Links til referencer er velkomne."></textarea>
+          </div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit" style="justify-self:start">Send forespørgsel →</button>
+        </form>
+
+        <div class="done" id="done" aria-live="polite">
+          <h3 style="font-size:32px">Tak — din forespørgsel er klar.</h3>
+          <p style="color:var(--muted);margin:0">Kopiér teksten og send den til kontakt@simonbertelsen.dk, så vender Simon tilbage inden for 48 timer.</p>
+          <pre id="summary"></pre>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="button" id="copy">Kopiér forespørgsel</button>
+            <button class="btn ghost" type="button" id="again">Ret forespørgslen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="logo" href="#top">Simon Bertelsen<span>.</span></a>
+      <p class="mono" style="margin:8px 0 0">Video · Foto · Lys — København</p>
+    </div>
+    <nav>
+      <a href="https://www.instagram.com/simon_bertelsenn/">Instagram</a>
+      <a href="mailto:kontakt@simonbertelsen.dk">kontakt@simonbertelsen.dk</a>
+      <a href="#booking">Booking</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// Filter
+const chips=[...document.querySelectorAll('.chip')];
+const works=[...document.querySelectorAll('.work')];
+chips.forEach(c=>c.addEventListener('click',()=>{
+  chips.forEach(x=>x.setAttribute('aria-pressed',x===c));
+  const f=c.dataset.f;
+  works.forEach(w=>w.hidden=!(f==='alle'||w.dataset.type===f));
+}));
+
+// Pakke-knapper forvælger type i formularen
+document.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{
+  const r=document.querySelector(`#pickType input[value="${b.dataset.pick}"]`);
+  if(r) r.checked=true;
+}));
+
+// Booking
+const form=document.getElementById('bookForm'),done=document.getElementById('done'),err=document.getElementById('err');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const d=new FormData(form);
+  const type=d.get('type'),name=(d.get('name')||'').trim(),email=(d.get('email')||'').trim();
+  if(!type){err.textContent='Vælg om det er video, foto eller begge.';return}
+  if(!name){err.textContent='Skriv dit navn, så Simon ved, hvem han svarer.';return}
+  if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent='Tjek e-mailadressen — den ser ikke helt rigtig ud.';return}
+  err.textContent='';
+  const kinds=d.getAll('kind').join(', ')||'—';
+  const date=d.get('date')?new Date(d.get('date')).toLocaleDateString('da-DK',{day:'numeric',month:'long',year:'numeric'}):'Fleksibel';
+  document.getElementById('summary').textContent=
+`Booking-forespørgsel
+Type: ${type}
+Opgave: ${kinds}
+Dato: ${date}
+Sted: ${d.get('place')||'—'}
+Budget: ${d.get('budget')||'—'}
+Navn: ${name}
+E-mail: ${email}
+
+${d.get('msg')||''}`;
+  form.style.display='none';done.classList.add('show');
+});
+document.getElementById('again').addEventListener('click',()=>{done.classList.remove('show');form.style.display=''});
+document.getElementById('copy').addEventListener('click',async e=>{
+  try{await navigator.clipboard.writeText(document.getElementById('summary').textContent);e.target.textContent='Kopieret ✓'}
+  catch{e.target.textContent='Markér teksten og kopiér manuelt'}
+});
+</script>
+</body>
+</html>
